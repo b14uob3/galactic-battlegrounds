@@ -31,7 +31,7 @@ impl Base {
         self.cc_level += 1;
     }
 
-    pub fn size(&self) -> usize {
+    pub fn size() -> usize {
         U32_SIZE +
         DISCRIMINATOR_SIZE +
         STRING_LENGTH_SIZE + MAX_NAME_SIZE +
