@@ -11,6 +11,7 @@ pub struct BaseCreate<'info> {
         space = Base::size(),
     )]
     pub base: Account<'info, Base>,
+    #[account(mut)]
     pub payer: Signer<'info>,
     #[account(mut)]
     pub counter: Account<'info, Counter>,
@@ -24,7 +25,7 @@ pub struct Counter {
 
 impl<'info> BaseCreate<'_> {
     pub fn process(&mut self, name: String) -> Result<()> {
-        let { base, counter, payer, ... } = self;
+        let Self { base, counter, payer, ... } = self;
         base.set_inner(Base::new(counter.count, name, payer.key()));
         counter.count += 1;
 
