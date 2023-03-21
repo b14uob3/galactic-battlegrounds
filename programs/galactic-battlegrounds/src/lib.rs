@@ -6,7 +6,7 @@ mod errors;
 
 pub use state::*;
 pub use ix::*;
-pub use errors::*;
+pub use errors::ErrorCode;
 
 
 declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");

@@ -4,7 +4,7 @@ use crate::*;
 pub struct BaseCreate<'info> {
     #[account(
         init,
-        seeds = [b"base", counter.count.to_le_bytes().as_ref()],
+        seeds = [b"base", base_data.count.to_le_bytes().as_ref()],
         bump,
         payer = payer,
         space = Base::size(),
@@ -26,7 +26,7 @@ impl<'info> BaseCreate<'_> {
             ..
         } = self;
         base.set_inner(Base::new(base_data.count, name, payer.key()));
-        base_data.count = base_data.checked_add(1).ok_or(ErrorCode::Overflow)?;
+        base_data.count = base_data.count.checked_add(1).ok_or(ErrorCode::Overflow)?;
         Ok(())
     }
 }
