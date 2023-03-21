@@ -17,18 +17,16 @@ pub struct BaseCreate<'info> {
     pub system_program: Program<'info, System>,
 }
 
-
-
 impl<'info> BaseCreate<'_> {
     pub fn process(&mut self, name: String) -> Result<()> {
         let Self {
             base,
-            counter,
+            base_data,
             payer,
             ..
         } = self;
-        base.set_inner(Base::new(counter.count, name, payer.key()));
-
+        base.set_inner(Base::new(base_data.count, name, payer.key()));
+        base_data.count = base_data.checked_add(1).ok_or(ErrorCode::Overflow)?;
         Ok(())
     }
 }

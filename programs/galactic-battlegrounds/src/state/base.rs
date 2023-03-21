@@ -9,7 +9,6 @@ pub struct Base {
     // todo: add alliance
 }
 
-
 const DISCRIMINATOR_SIZE: usize = 8;
 const PUBKEY_SIZE: usize = 32;
 const U8_SIZE: usize = 1;

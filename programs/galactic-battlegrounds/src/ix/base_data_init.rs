@@ -19,13 +19,10 @@ impl<'info> BaseDataInit<'_> {
     pub fn process(&mut self) -> Result<()> {
         let Self {
             base_data,
-            payer,
             ..
         } = self;
 
-        if base_data.count != 0 {
-            return Err(ErrorCode::BaseDataAlreadyInitialized.into());
-        }
+        require!(base_data.count == 0, ErrorCode::AlreadyInitialized);
 
         base_data.set_inner(BaseData::new());
         Ok(())
