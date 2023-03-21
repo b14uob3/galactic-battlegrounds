@@ -1,7 +1,7 @@
 use crate::*;
 
 #[derive(Accounts)]
-pub struct BaseDataInit<'info> {
+pub struct BaseDataCreate<'info> {
     #[account(
         init,
         seeds = [b"base_data"],
@@ -15,7 +15,7 @@ pub struct BaseDataInit<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn base_data_init_inner(ctx: Context<BaseDataInit>) -> Result<()> {
+pub fn base_data_create_inner(ctx: Context<BaseDataCreate>) -> Result<()> {
     let base_data = &mut ctx.accounts.base_data;
     let payer = &ctx.accounts.payer;
 
