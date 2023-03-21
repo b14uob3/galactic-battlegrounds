@@ -13,7 +13,11 @@ declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 pub mod galactic_battlegrounds {
     use super::*;
 
-    pub fn initialize(ctx: Context<BaseCreate>, name: String) -> Result<()> {
+    pub fn base_create(ctx: Context<BaseCreate>, name: String) -> Result<()> {
         ctx.accounts.process(name)
+    }
+
+    pub fn base_data_init(ctx: Context<BaseDataInit>) -> Result<()> {
+        ctx.accounts.process()
     }
 }
