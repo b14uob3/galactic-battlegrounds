@@ -16,6 +16,7 @@ pub struct BaseDataInit<'info> {
 }
 
 impl<'info> BaseDataInit<'_> {
+    #[access_control(Self::constraints(&self))]
     pub fn process(&mut self) -> Result<()> {
         let Self {
             base_data,
@@ -23,9 +24,18 @@ impl<'info> BaseDataInit<'_> {
             ..
         } = self;
 
-        require!(base_data.count == 0, ErrorCode::AlreadyInitialized);
-
         base_data.set_inner(BaseData::new(payer.key()));
+        Ok(())
+    }
+
+    pub fn constraints(&self) -> Result<()> {
+        let Self {
+            base_data,
+            payer,
+            ..
+        } = self;
+
+        require!(base_data.count == 0, ErrorCode::AlreadyInitialized);
         Ok(())
     }
 }
