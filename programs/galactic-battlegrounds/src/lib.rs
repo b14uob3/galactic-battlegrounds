@@ -1,12 +1,14 @@
 use anchor_lang::prelude::*;
 
-mod state;
-mod ix;
+mod constants;
 mod errors;
+mod ix;
+mod state;
 
-pub use state::*;
-pub use ix::*;
+pub use constants::*;
 pub use errors::ErrorCode;
+pub use ix::*;
+pub use state::*;
 
 
 declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
@@ -15,11 +17,11 @@ declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 pub mod galactic_battlegrounds {
     use super::*;
 
-    pub fn base_create(ctx: Context<BaseCreate>, name: String) -> Result<()> {
-        ctx.accounts.process(name)
+    pub fn base_data_create(ctx: Context<BaseDataCreate>) -> Result<()> {
+        base_data_create_inner(ctx)
     }
 
-    pub fn base_data_init(ctx: Context<BaseDataInit>) -> Result<()> {
-        ctx.accounts.process()
+    pub fn base_create(ctx: Context<BaseCreate>, name: String) -> Result<()> {
+        base_create_inner(ctx, name)
     }
 }
