@@ -17,16 +17,17 @@ pub struct BaseCreate<'info> {
     pub system_program: Program<'info, System>,
 }
 
-impl<'info> BaseCreate<'_> {
-    pub fn process(&mut self, name: String) -> Result<()> {
-        let Self {
-            base,
-            base_data,
-            payer,
-            ..
-        } = self;
-        base.set_inner(Base::new(base_data.count, name, payer.key()));
-        base_data.count = base_data.count.checked_add(1).ok_or(ErrorCode::Overflow)?;
-        Ok(())
-    }
+pub fn base_create_inner(ctx: Context<BaseCreate>, name: String) -> Result<()> {
+    let base = &mut ctx.accounts.base;
+    let payer = &ctx.accounts.payer;
+    let base_data = &mut ctx.accounts.base_data;
+
+    base.id = base_data.count;
+    base.name = name;
+    base.owner = payer.key();
+    base.cc_level = 1;
+
+    base_data.count = base_data.count.checked_add(1).ok_or(ErrorCode::Overflow)?;
+
+    Ok(())
 }
