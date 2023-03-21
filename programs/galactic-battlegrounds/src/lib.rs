@@ -1,14 +1,14 @@
 use anchor_lang::prelude::*;
 
-mod state;
-mod ix;
+mod constants;
 mod errors;
-mod constants.rs;
+mod ix;
+mod state;
 
-pub use state::*;
-pub use ix::*;
-pub use errors::ErrorCode;
 pub use constants::*;
+pub use errors::ErrorCode;
+pub use ix::*;
+pub use state::*;
 
 
 declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
@@ -17,7 +17,7 @@ declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
 pub mod galactic_battlegrounds {
     use super::*;
 
-    pub fn base_data_init(ctx: Context<BaseDataInit>) -> Result<()> {
+    pub fn base_data_create(ctx: Context<BaseDataCreate>) -> Result<()> {
         base_data_create_inner(ctx)
     }
 
